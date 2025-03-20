@@ -61,7 +61,7 @@ class CsrfRouter implements CsrfRouterInterface
     /**
      * @param RequestContext $context
      */
-    public function setContext(RequestContext $context)
+    public function setContext(RequestContext $context): void
     {
         $this->parent->setContext($context);
     }
@@ -69,7 +69,7 @@ class CsrfRouter implements CsrfRouterInterface
     /**
      * @return RequestContext
      */
-    public function getContext()
+    public function getContext(): RequestContext
     {
         return $this->parent->getContext();
     }
@@ -77,16 +77,12 @@ class CsrfRouter implements CsrfRouterInterface
     /**
      * @return RouteCollection
      */
-    public function getRouteCollection()
+    public function getRouteCollection(): RouteCollection
     {
         return $this->parent->getRouteCollection();
     }
 
-    /**
-     * @param string $pathinfo
-     * @return boolean
-     */
-    public function match($pathinfo)
+    public function match(string $pathinfo): array
     {
         return $this->parent->match($pathinfo);
     }
@@ -97,7 +93,7 @@ class CsrfRouter implements CsrfRouterInterface
      * @param bool|string $referenceType
      * @return string
      */
-    public function generate($name, $parameters = [], $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public function generate(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
         // Add Csrf token if required
         if ($this->options['enabled']) {
@@ -111,15 +107,6 @@ class CsrfRouter implements CsrfRouterInterface
         return $this->parent->generate(
             $name, $parameters, $referenceType
         );
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function matchRequest(Request $request)
-    {
-        return $this->parent->matchRequest($request);
     }
 
     /**
