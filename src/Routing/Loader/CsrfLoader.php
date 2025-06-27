@@ -22,7 +22,7 @@ class CsrfLoader extends AttributeRouteControllerLoader
      *
      * @throws \LogicException When the service option is specified on a method
      */
-    protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot)
+    protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot): void
     {
         parent::configureRoute($route, $class, $method, $annot);
 

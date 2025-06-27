@@ -33,7 +33,7 @@ class CsrfTokenExtension extends AbstractExtension
     /**
      * @return array
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('csrf_token', [$this, 'getToken']),
@@ -45,7 +45,7 @@ class CsrfTokenExtension extends AbstractExtension
      *
      * @return string
      */
-    public function getToken($routeName)
+    public function getToken($routeName): string
     {
         $token = $this->csrfRouter->getCsrfToken($routeName);
 
@@ -55,7 +55,7 @@ class CsrfTokenExtension extends AbstractExtension
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'genedys_csrf.csrf_token';
     }

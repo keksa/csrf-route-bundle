@@ -14,7 +14,7 @@ class SetRouterPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // Replace default router
         if ($container->hasAlias('router')) {
