@@ -2,14 +2,15 @@
 
 namespace Genedys\CsrfRouteBundle\Routing\Loader;
 
+use Genedys\CsrfRouteBundle\Annotation\CsrfToken;
 use Genedys\CsrfRouteBundle\Routing\TokenProviderInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
+use Symfony\Bundle\FrameworkBundle\Routing\AttributeRouteControllerLoader;
 use Symfony\Component\Routing\Route;
 
 /**
  * @author Fabien Antoine <fabien@fantoine.fr>
  */
-class CsrfLoader extends AnnotatedRouteControllerLoader
+class CsrfLoader extends AttributeRouteControllerLoader
 {
     /**
      * Configures the CSRF token options
@@ -25,11 +26,12 @@ class CsrfLoader extends AnnotatedRouteControllerLoader
     {
         parent::configureRoute($route, $class, $method, $annot);
 
-        /** @var \Genedys\CsrfRouteBundle\Annotation\CsrfToken */
-        $annotation = $this->reader->getMethodAnnotation($method, '\\Genedys\\CsrfRouteBundle\\Annotation\\CsrfToken');
-        if (null !== $annotation) {
+        /** @var CsrfToken|null $attribute */
+        $attribute = ($method->getAttributes(CsrfToken::class)[0] ?? null)?->newInstance();
+
+        if (null !== $attribute) {
             // Store the CsrfToken options on Route options
-            $route->setOption(TokenProviderInterface::OPTION_NAME, $annotation->toOption());
+            $route->setOption(TokenProviderInterface::OPTION_NAME, $attribute->toOption());
         }
     }
 }

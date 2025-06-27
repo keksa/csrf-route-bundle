@@ -28,9 +28,9 @@ class SetRouterPass implements CompilerPassInterface
             $container->setAlias('router', 'genedys_csrf_route.routing.router');
         }
 
-        // Replace Sensio Route annotation loader
+        // Replace route attribute loader
         $container
-            ->findDefinition('routing.loader.annotation')
+            ->findDefinition('routing.loader.attribute')
             ->setClass('%genedys_csrf_route.routing.loader.class%')
         ;
     }

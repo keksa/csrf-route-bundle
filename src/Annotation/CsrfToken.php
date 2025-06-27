@@ -6,39 +6,22 @@ use Genedys\CsrfRouteBundle\Model\CsrfToken as BaseCsrfToken;
 
 /**
  * @author Fabien Antoine <fabien@fantoine.fr>
- *
- * @Annotation
- * @Target("METHOD")
- * @Attributes({
- *   @Attribute("token", type="string"),
- *   @Attribute("intention", type="string"),
- *   @Attribute("methods", type="array"),
- * })
  */
+#[\Attribute(\Attribute::TARGET_METHOD)]
 class CsrfToken extends BaseCsrfToken
 {
-    /**
-     * @param array $values
-     */
-    public function __construct(array $values)
-    {
-        $options = array_merge([
-            'token'     => null,
-            'intention' => null,
-            'methods'   => null,
-        ], $values);
-
+    public function __construct(
+        ?string $token = null,
+        ?string $intention = null,
+        string|array|null $methods = null,
+    ){
         $this
-            ->setToken($options['token'])
-            ->setIntention($options['intention'])
-            ->setMethods($options['methods'])
-        ;
+            ->setToken($token)
+            ->setIntention($intention)
+            ->setMethods($methods);
     }
 
-    /**
-     * @return array|boolean
-     */
-    public function toOption()
+    public function toOption(): array|bool
     {
         $options = [];
 
